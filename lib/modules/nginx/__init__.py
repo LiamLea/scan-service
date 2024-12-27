@@ -1,0 +1,1 @@
+from lib.modules.nginx.scan_nginx import NginxScan

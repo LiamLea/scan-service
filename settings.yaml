@@ -1,0 +1,46 @@
+server:
+  ip: 0.0.0.0
+  port: 8080
+
+software:
+  load_modules:
+  - ApacheScan
+  - NginxScan
+  - OracleScan
+  - WeblogicScan
+  - MysqlScan
+  - TomcatScan
+  - PGScan
+
+arguments:
+  threads: 5
+  processes: 1
+
+kafka:
+  server: 192.168.90.205:30910
+  topic:
+    host_deploy: topic_os_config_lil
+    software_deploy: topic_software_config_lil
+    progress: topic_discovery_process_lil
+
+probe_service: 1
+db_info:
+  host: 192.168.90.205
+  port: 32490
+  db_name: aiops_dev
+  user: kangpaas
+  password: kangpaasgo
+
+#kafka:
+#  server: 3.1.4.220:19092
+#  topic:
+#    host_deploy: topic_os_config_lil
+#    software_deploy: topic_software_config_lil
+#    progress: topic_discovery_process_lil
+#
+#db_info:
+#  host: 3.1.4.220
+#  port: 14000
+#  db_name: aiops_dev
+#  user: kangpaas
+#  password: kangpaas

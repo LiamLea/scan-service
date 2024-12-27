@@ -1,0 +1,229 @@
+import telnetlib
+import time
+import json
+import hashlib
+#from lib.framework import BusinessException
+from lib.vars import global_var
+from lib.utils import string_to_bytes
+
+
+def windows_call_powershell(host, user, password):
+    try:
+        window_server_host = global_var.global_config["windows"]["host"]
+        windows_server_user = global_var.global_config["windows"]["user"]
+        windows_server_password = global_var.global_config["windows"]["password"]
+        window_server_host = window_server_host.encode("utf8")
+        windows_server_user = windows_server_user.encode("utf8")
+        windows_server_password = windows_server_password.encode("utf8")
+        if window_server_host != host:
+            cmd = b"powershell C:\Users\Administrator\Desktop\windows_er\Collect-ServerInfo_remote.ps1 %s %s %s" % (
+            host, user, password)
+        else:
+            cmd = b"powershell C:\Users\Administrator\Desktop\windows_er\Collect-ServerInfo.ps1 %s" % host
+        tn = telnetlib.Telnet(window_server_host)
+        tn.set_debuglevel(0);
+        # print("正在加载文件，请稍等……")
+        # 休眠5秒，不然第二次读取也可能读不出来
+        time.sleep(5)
+        # 当匹配到login时代表已成功连接到HOST主机，这儿为输入帐号提示
+        tn.read_until(b"login:")
+        # 向主机发送登陆帐号，模拟键盘输入
+        tn.write(windows_server_user + b"\r\n")
+        # print("login success")
+        # 向主机发送登陆密码，模拟键盘输入
+        tn.read_until(b"password:")
+        tn.write(windows_server_password + b"\r\n")
+        # print("password success")
+        # 判断是否成功登陆主机
+        tn.read_until(b"Microsoft Telnet Server")
+        # 向主机发送相应的DOS命令行
+        tn.write(cmd + b"\r\n")
+        ra = tn.read_until(b"end collect", timeout=300)
+        # 读取所匹配到的数据
+        ra = ra.decode('gbk').split('start collect')[1]
+        ra = ra.split('end collect')[0]
+        return_value = json.loads(ra)
+        # print(return_value)
+        tn.write(b"exit\r\n")
+        tn.close()
+    except Exception as e:
+        print('parse failed!')
+        print(e)
+        raise Exception(str(e))
+    else:
+        print("获取结束……")
+        return return_value
+
+
+def further_data_processing(data, host):
+    # collect time
+    collect_time = time.strftime('%Y.%m.%d %H:%M:%S', time.localtime(time.time()))
+    data['collect_time'] = collect_time
+    # collect uuid
+    uuid = hashlib.md5(data['BIOSInformation']['Serial Number'].encode("utf8")).hexdigest()
+    data['uuid'] = uuid
+    cpu_core_number = 0
+    for cpu in data['CpuInformation']:
+        cpu_core_number += cpu['NumberOfCores']
+        cpu['Speed (Mhz)'] = float(cpu['Name'].split('@ ')[1].split('GHz')[0])*1024
+    data['SystemInformation']['Cpu core number'] = cpu_core_number
+    data['SystemInformation']['Cpu number'] = len(data['CpuInformation'])
+    data['SystemInformation']['Physical memory number'] = len(data['PhysicalMemoryInformation'])
+    total_size = 0
+    free_size = 0
+    for logicaldisk in data['LogicalDiskInformation']:
+        total_size += logicaldisk['Total Size (GB)']
+        free_size += logicaldisk['Free Space (GB)']
+    data['SystemInformation']['Total Logical Disk (Gb)'] = total_size
+    data['SystemInformation']['Free Logical Disk (Gb)'] = free_size
+    data['SystemInformation']['Logical Disk number'] = len(data['LogicalDiskInformation'])
+    repeat_device_list = []
+    interface_number = 0
+    for port in data['PortInformation']:
+        if port['PNPDeviceID'].split('\\')[1] not in repeat_device_list:
+            interface_number += 1
+            repeat_device_list.append(port['PNPDeviceID'].split('\\')[1])
+        if port['Speed (Mbps)'] == 9223372036854.775:
+            port['Speed (Mbps)'] = 0
+    for Interface in data['NetworkInterfaceInformation']:
+        if Interface['Speed (Mbps)'] == 9223372036854.775:
+            Interface['Speed (Mbps)'] = 0
+    data['SystemInformation']['Networkcard number'] = interface_number
+    data['SystemInformation']['Port number'] = len(data['PortInformation'])
+    slots_number = 0
+    if isinstance(data['SystemInformation']['Total DIMM Slots Number'],list):
+        for num in data['SystemInformation']['Total DIMM Slots Number']:
+            slots_number += num
+    elif isinstance(data['SystemInformation']['Total DIMM Slots Number'],int):
+        slots_number = data['SystemInformation']['Total DIMM Slots Number']
+
+    data['SystemInformation']['Total DIMM Slots Number'] = slots_number
+    # collect virtualization
+    virtualization = dict()
+    model = data['SystemInformation']['Model']
+    if 'Virtual' in model:
+        virtualization['virtual'] = 'YES'
+        virtualization['virtual_type'] = model
+    else:
+        virtualization['virtual'] = 'NO'
+        virtualization['virtual_type'] = ''
+    data['virtualization'] = virtualization
+    # collect hardware
+    hardware = dict()
+    hardware['part_type1'] = [{}, {}]
+    hardware['part_type2'] = [{}, {}]
+    data['hardware'] = hardware
+    # collect scanip
+    data['scan_ip'] = host
+    data['os_type'] = 'Windows'
+    data['mac'] = ''
+    data['netmask'] = ''
+    get_macnetmask_flag = 0
+    for interface in data['NetworkInterfaceInformation']:
+        i = 0
+        for ip in interface['IPAddress'].split(';'):
+            if host in ip:
+                data['mac'] = interface['MAC']
+                data['netmask'] = interface['IpSubnet'].split(';')[i]
+                get_macnetmask_flag = 1
+                break
+            i += 1
+        if get_macnetmask_flag:
+            break
+    for route in data['Route']:
+        if route['Destination'] == '0.0.0.0':
+            interface_index = route['InterfaceIndex']
+            break
+    for interface in data['NetworkInterfaceInformation']:
+        if interface['InterfaceIndex'] == interface_index:
+            sysip = interface['IPAddress'].split(';')[0]
+            data['SystemInformation']['sysip'] = sysip
+            break
+    if type(data['SoftwareInformation']) == dict:
+        data['SoftwareInformation'] = [data['SoftwareInformation']]
+    data['mapping'] = get_mapping(data)
+    return data
+
+
+def get_mapping(data):
+    data_mapping = {}
+    data_mapping['SystemInformation'] = {}
+    data_mapping['SystemInformation']['Total Physical Memory (Gb)'] = string_to_bytes(str(data['SystemInformation']['Total Physical Memory (Gb)']) + 'G')
+    data_mapping['SystemInformation']['Total Logical Disk (Gb)'] = string_to_bytes(str(data['SystemInformation']['Total Logical Disk (Gb)']) + 'G')
+    data_mapping['SystemInformation']['Free Logical Disk (Gb)'] = string_to_bytes(str(data['SystemInformation']['Free Logical Disk (Gb)']) + 'G')
+    data_mapping['OperatingSystemInformation'] = {}
+    data_mapping['OperatingSystemInformation']['FreePhysicalMemory (GB)'] = string_to_bytes(str(data['OperatingSystemInformation']['FreePhysicalMemory (GB)']) + 'G')
+    data_mapping['LogicalDiskInformation'] = []
+    for disk in data['LogicalDiskInformation']:
+        disk_size = {}
+        disk_size['Free Space (GB)'] = string_to_bytes(str(disk['Free Space (GB)']) + 'G')
+        disk_size['Total Size (GB)'] = string_to_bytes(str(disk['Total Size (GB)']) + 'G')
+        data_mapping['LogicalDiskInformation'].append(disk_size)
+    data_mapping['VolumeInformation'] = []
+    for volume in data['VolumeInformation']:
+        volume_size = {}
+        volume_size['Free Space (GB)'] = string_to_bytes(str(volume['Free Space (GB)']) + 'G')
+        volume_size['Total Size (GB)'] = string_to_bytes(str(volume['Total Size (GB)']) + 'G')
+        data_mapping['VolumeInformation'].append(volume_size)
+    return data_mapping
+    
+def parse_windows(host, user, password):
+    try:
+        host = host.encode("utf8")
+        user = user.encode("utf8")
+        password = password.encode("utf8")
+        data = windows_call_powershell(host, user, password)
+        further_data = further_data_processing(data, host.decode())
+    except Exception as e:
+        raise Exception(str(e))
+    else:
+        return further_data
+
+def call_powershell(host,user,password):
+    window_server_host = global_var.global_config["windows"]["host"]
+    windows_server_user = global_var.global_config["windows"]["user"]
+    windows_server_password = global_var.global_config["windows"]["password"]
+
+    window_server_host = window_server_host.encode("utf8")
+    windows_server_user = windows_server_user.encode("utf8")
+    windows_server_password = windows_server_password.encode("utf8")
+    host = host.encode("utf8")
+    user = user.encode("utf8")
+    password = password.encode("utf8")
+    try:
+        tn = telnetlib.Telnet(window_server_host)
+        tn.set_debuglevel(0);
+        #print("正在加载文件，请稍等……")
+        #休眠5秒，不然第二次读取也可能读不出来
+        time.sleep(5)
+        #当匹配到login时代表已成功连接到HOST主机，这儿为输入帐号提示
+        tn.read_until(b"login:")
+        #向主机发送登陆帐号，模拟键盘输入
+        tn.write(windows_server_user+b"\r\n")
+        #print("login success")
+        #向主机发送登陆密码，模拟键盘输入
+        tn.read_until(b"password:")
+        tn.write(windows_server_password+b"\r\n")
+        #print("password success")
+        #判断是否成功登陆主机
+        tn.read_until(b"Microsoft Telnet Server", timeout=30)
+        #向主机发送相应的DOS命令行
+        if window_server_host != host:
+            cmd=b"powershell C:/Users/Administrator/Desktop/windows_er/Collect-ServerInfo_test_remote.ps1 %s %s %s" % (host, user, password)
+            tn.write(cmd+b"\r\n")
+            ra=tn.read_until(b"finish test", timeout=60)
+            ra = ra.decode('gbk')
+            if "Unable to connect" in ra:
+                raise Exception("connect failed")
+        tn.write(b"exit\r\n")
+        tn.close()
+    except Exception as e:
+        raise Exception("凭据不正确:%s" % str(e))
+    else:
+        return 1
+
+# if '__main__'==__name__:
+#    host = sys.argv[1].encode("utf8")
+#    user = sys.argv[2].encode("utf8")
+#    password = sys.argv[3].encode("utf8")
+#    data = parse_windows(host,user,password)

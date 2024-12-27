@@ -1,0 +1,9 @@
+FROM 10.10.10.250/library/nmap:debian
+RUN set -x \
+    && rm -rf /usr/share/snmp/mibs 
+ADD scripts.tar.gz /usr/local/
+ADD snmp/mibs.tar.gz /usr/share/snmp/
+ADD snmp/snmp.conf /etc/snmp/
+
+
+CMD ["/usr/bin/python3", "/usr/local/scan_service/main.py"]

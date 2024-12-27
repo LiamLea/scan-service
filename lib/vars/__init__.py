@@ -1,0 +1,1 @@
+from lib.vars import global_var
