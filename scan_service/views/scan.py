@@ -1,24 +1,24 @@
-from scan_service.lib import out_kafka
+from scan_service.lib.utils import out_kafka
 from scan_service.lib.vars import global_var
 import importlib
-from scan_service.lib import BusinessException
-from scan_service.lib import AuthException
-from scan_service.lib import format_result
-from scan_service.lib import logger
-from scan_service.lib import format_future_result
+from scan_service.lib.framework import BusinessException
+from scan_service.lib.framework import AuthException
+from scan_service.lib.framework import format_result
+from scan_service.lib.framework import logger
+from scan_service.lib.framework import format_future_result
 import json
 import traceback
 import time
 
 from flask import Blueprint
 from flask import request
-from scan_service.lib import process_queues
-from scan_service.lib import result_queue
-from scan_service.lib import lock
-from scan_service.lib import event
-from scan_service.lib import producer
+from scan_service.lib.framework import process_queues
+from scan_service.lib.framework import result_queue
+from scan_service.lib.framework import lock
+from scan_service.lib.framework import event
+from scan_service.lib.framework import producer
 from .common import build_reponse
-from scan_service.lib import get_progress
+from scan_service.lib.modules import get_progress
 import os
 from pathlib import Path
 
@@ -651,7 +651,7 @@ def sctipts():
         logger.error("/run/scripts接口调用异常：%s" %traceback.format_exc())
         return build_reponse(format_result(success = 0, message = "脚本执行接口异常：%s" %e))
 
-from scan_service.lib import RunScripts
+from scan_service.lib.modules import RunScripts
 #执行脚本任务
 def run_scripts(credentials, kafka_producer, task_id, id, tasks, sudo):
     credential_num = len(credentials)

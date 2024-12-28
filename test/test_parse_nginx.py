@@ -1,5 +1,5 @@
-from scan_service.lib import SSH
-from scan_service.lib import SHELL
+from scan_service.lib.utils import SSH
+from scan_service.lib.utils import SHELL
 import re
 
 # from lib.modules.nginx.parse_nginx import NginxParse
