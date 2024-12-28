@@ -1,7 +1,7 @@
-from lib.vars import global_var
+from scan_service.lib.vars import global_var
 import  re
 import hashlib
-from lib.common import ParseViaSSH
+from scan_service.lib.common import ParseViaSSH
 
 class OracleParse(ParseViaSSH):
     def __init__(self, ssh, passwd):

@@ -1,1 +1,1 @@
-from lib.modules.mysql.scan_mysql import MysqlScan
+from scan_service.lib.modules.mysql.scan_mysql import MysqlScan

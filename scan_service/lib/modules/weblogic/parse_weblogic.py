@@ -2,13 +2,13 @@ import xmltodict
 import os
 import json
 import re
-from lib.common import ParseViaSSH
-from lib.vars import global_var
+from scan_service.lib.common import ParseViaSSH
+from scan_service.lib.vars import global_var
 import traceback
-from lib.framework import logger
-from lib.utils import parse_jdbc
-from lib.utils import get_ip_from_hostname
-from lib.utils import MyList
+from scan_service.lib.framework import logger
+from scan_service.lib.utils import parse_jdbc
+from scan_service.lib.utils import get_ip_from_hostname
+from scan_service.lib.utils import MyList
 
 
 class WeblogicParse(ParseViaSSH):

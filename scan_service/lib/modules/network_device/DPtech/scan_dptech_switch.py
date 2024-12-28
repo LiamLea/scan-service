@@ -1,5 +1,5 @@
-from lib.utils import size
-from lib.modules.network_device.scan_switch import SwitchScan
+from scan_service.lib.utils import size
+from scan_service.lib.modules.network_device.scan_switch import SwitchScan
 
 class DptechSwitchScan(SwitchScan):
 

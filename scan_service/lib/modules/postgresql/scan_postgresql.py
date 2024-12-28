@@ -1,8 +1,8 @@
-from lib.common import BaseScan
+from scan_service.lib.common import BaseScan
 import re
 from .parse_postgresql import PGParse
 import os
-from lib.utils import MyList
+from scan_service.lib.utils import MyList
 
 class PGScan(BaseScan, PGParse):
     """

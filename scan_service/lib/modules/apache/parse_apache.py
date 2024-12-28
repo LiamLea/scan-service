@@ -1,5 +1,5 @@
 import re
-from lib.common import ParseViaSSH
+from scan_service.lib.common import ParseViaSSH
 
 class ApacheParse(ParseViaSSH):
     def __init__(self, ssh, passwd):

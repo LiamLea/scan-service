@@ -1,6 +1,6 @@
 import unittest
 import json
-from main import app
+from scan_service.main import app
 from unittest import mock
 from parameterized import  parameterized
 

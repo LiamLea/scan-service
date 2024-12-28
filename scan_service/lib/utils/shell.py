@@ -1,10 +1,10 @@
-from lib.utils import MyList
-from lib.vars import global_var
+from scan_service.lib.utils import MyList
+from scan_service.lib.vars import global_var
 import re
 import subprocess
-from lib.framework import BusinessException
+from scan_service.lib.framework import BusinessException
 import socket
-from lib.framework import logger
+from scan_service.lib.framework import logger
 
 class SHELL:
 

@@ -1,4 +1,4 @@
-from lib.common import ParseViaSSH
+from scan_service.lib.common import ParseViaSSH
 import hashlib
 
 class MysqlParse(ParseViaSSH):

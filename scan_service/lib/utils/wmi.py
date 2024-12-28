@@ -1,5 +1,5 @@
-from lib.framework import AuthException
-from lib.framework import BusinessException
+from scan_service.lib.framework import AuthException
+from scan_service.lib.framework import BusinessException
 try:
     import wmi_client_wrapper
     from sh import ErrorReturnCode

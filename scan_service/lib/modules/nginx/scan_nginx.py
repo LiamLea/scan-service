@@ -1,5 +1,5 @@
-from lib.common import BaseScan
-from lib.modules.nginx.parse_nginx import NginxParse
+from scan_service.lib.common import BaseScan
+from scan_service.lib.modules.nginx.parse_nginx import NginxParse
 import re
 import hashlib
 

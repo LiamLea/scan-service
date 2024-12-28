@@ -1,4 +1,4 @@
-from lib.vars import global_var
+from scan_service.lib.vars import global_var
 from sqlalchemy import create_engine,Table
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base

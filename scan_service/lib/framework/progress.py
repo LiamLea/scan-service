@@ -1,8 +1,8 @@
 from threading import Thread
 from threading import Event
 from kafka import KafkaProducer
-from lib.utils.kafka_utils import out_kafka
-from lib.vars import global_var
+from scan_service.lib.utils.kafka_utils import out_kafka
+from scan_service.lib.vars import global_var
 import time
 from .concurrent_utility import result_queue
 from .log_utility import logger

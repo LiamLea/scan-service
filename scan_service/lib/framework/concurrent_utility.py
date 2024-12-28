@@ -1,15 +1,15 @@
 from concurrent.futures import ThreadPoolExecutor
 from multiprocessing import Queue
 from multiprocessing import Process
-from lib.vars import global_var
+from scan_service.lib.vars import global_var
 from threading import Lock
 from threading import Thread
-from lib.utils import MyInt
+from scan_service.lib.utils import MyInt
 from kafka import KafkaProducer
 import time
 from functools import partial
 from .log_utility import logger
-from lib.utils.kafka_utils import out_kafka
+from scan_service.lib.utils.kafka_utils import out_kafka
 import os
 from .exception import BusinessException
 from pathlib import Path

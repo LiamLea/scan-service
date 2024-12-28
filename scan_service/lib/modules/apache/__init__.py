@@ -1,1 +1,1 @@
-from lib.modules.apache.scan_apache import ApacheScan
+from scan_service.lib.modules.apache.scan_apache import ApacheScan

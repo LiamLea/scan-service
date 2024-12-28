@@ -1,6 +1,6 @@
-from lib.utils import MyList
-from lib.framework import BusinessException
-from lib.framework import AuthException
+from scan_service.lib.utils import MyList
+from scan_service.lib.framework import BusinessException
+from scan_service.lib.framework import AuthException
 import re
 
 try:

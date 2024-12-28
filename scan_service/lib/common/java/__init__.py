@@ -1,1 +1,1 @@
-from lib.common.java.java_scan import JavaScan
+from .java_scan import JavaScan

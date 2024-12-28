@@ -1,7 +1,7 @@
-from lib.common import BaseScan
+from scan_service.lib.common import BaseScan
 import re
-from lib.modules.oracle.parse_oracle import OracleParse
-from lib.utils import get_dir
+from scan_service.lib.modules.oracle.parse_oracle import OracleParse
+from scan_service.lib.utils import get_dir
 import hashlib
 
 class OracleScan(BaseScan, OracleParse):

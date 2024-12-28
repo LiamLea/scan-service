@@ -1,6 +1,6 @@
 import re
-from lib.common import ParseViaSSH
-from lib.utils import MyList
+from scan_service.lib.common import ParseViaSSH
+from scan_service.lib.utils import MyList
 from ..keepalived import KeepalivedScan
 import hashlib
 

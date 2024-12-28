@@ -1,1 +1,1 @@
-from lib.modules.oracle.scan_oracle import OracleScan
+from scan_service.lib.modules.oracle.scan_oracle import OracleScan

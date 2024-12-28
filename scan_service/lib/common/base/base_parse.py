@@ -1,4 +1,4 @@
-from lib.utils import SHELL
+from scan_service.lib.utils import SHELL
 
 class Parse:
     def __init__(self):

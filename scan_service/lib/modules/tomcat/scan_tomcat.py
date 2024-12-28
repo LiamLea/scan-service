@@ -1,4 +1,4 @@
-from lib.common import JavaScan
+from scan_service.lib.common import JavaScan
 from .parse_tomcat import TomcatParse
 import re
 

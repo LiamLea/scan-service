@@ -1,8 +1,8 @@
-from lib.common import BaseScan
+from scan_service.lib.common import BaseScan
 from .parse_mysql import MysqlParse
 import re
 import os
-from lib.utils import MyList
+from scan_service.lib.utils import MyList
 
 class MysqlScan(BaseScan, MysqlParse):
 

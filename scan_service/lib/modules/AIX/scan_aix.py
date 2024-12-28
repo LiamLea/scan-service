@@ -1,13 +1,13 @@
 import hashlib
 import time
 import re
-from lib.utils import MyList
-from lib.utils import size
-from lib.utils import string_to_bytes
+from scan_service.lib.utils import MyList
+from scan_service.lib.utils import size
+from scan_service.lib.utils import string_to_bytes
 import datetime
-from lib.utils import parse_pid_relation
-from lib.common import ScanViaSSH
-from lib.vars import global_var
+from scan_service.lib.utils import parse_pid_relation
+from scan_service.lib.common import ScanViaSSH
+from scan_service.lib.vars import global_var
 
 class AixScan(ScanViaSSH):
     def __init__(self, init_info):

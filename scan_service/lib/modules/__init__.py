@@ -15,18 +15,18 @@ from .windows import WindowsScan
 from .network_device import device_route
 from .run_scripts import RunScripts
 
-from lib.vars import global_var
-from lib.utils import SSH
-from lib.utils import SHELL
-from lib.utils import WMIC
+from scan_service.lib.vars import global_var
+from scan_service.lib.utils import SSH
+from scan_service.lib.utils import SHELL
+from scan_service.lib.utils import WMIC
 import importlib
 import hashlib
-from lib.framework import BusinessException
-from lib.framework import AuthException
-from lib.framework import logger
+from scan_service.lib.framework import BusinessException
+from scan_service.lib.framework import AuthException
+from scan_service.lib.framework import logger
 import traceback
 
-from lib.utils import SNMP
+from scan_service.lib.utils import SNMP
 from .network_device import get_vender
 
 class RunScan():

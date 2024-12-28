@@ -1,7 +1,7 @@
-from lib.utils import SSH
-from lib.utils import SHELL
+from scan_service.lib.utils import SSH
+from scan_service.lib.utils import SHELL
 from pathlib import Path
-from lib.framework import BusinessException
+from scan_service.lib.framework import BusinessException
 import os
 
 class RunScripts(SHELL):

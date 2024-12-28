@@ -1,1 +1,1 @@
-from lib.modules.weblogic.scan_weblogic import WeblogicScan
+from scan_service.lib.modules.weblogic.scan_weblogic import WeblogicScan

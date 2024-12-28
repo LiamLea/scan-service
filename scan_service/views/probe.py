@@ -1,8 +1,8 @@
-from lib.framework import BusinessException
-from lib.framework import format_result
-from lib.modules import RunUrlProbeScan
+from scan_service.lib import BusinessException
+from scan_service.lib import format_result
+from scan_service.lib import RunUrlProbeScan
 import json
-from lib.framework import logger
+from scan_service.lib import logger
 from flask import Blueprint
 from flask import request
 import traceback

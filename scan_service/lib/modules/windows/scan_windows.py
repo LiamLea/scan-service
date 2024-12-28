@@ -1,7 +1,7 @@
 import time
 import hashlib
-from lib.utils import string_to_bytes
-from lib.utils import WMIC
+from scan_service.lib.utils import string_to_bytes
+from scan_service.lib.utils import WMIC
 
 oslanguagename_dict = {"1": "Arabic",
                        "4": "Chinese (Simplified)– China",

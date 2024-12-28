@@ -1,5 +1,5 @@
-from lib.common import BaseScan
-from lib.modules.apache.parse_apache import ApacheParse
+from scan_service.lib.common import BaseScan
+from scan_service.lib.modules.apache.parse_apache import ApacheParse
 import re
 import hashlib
 

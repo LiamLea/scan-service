@@ -1,6 +1,6 @@
 from kafka import KafkaProducer
 from kafka import errors
-from lib.framework import BusinessException
+from scan_service.lib.framework import BusinessException
 import json
 from .data_clean import process_data
 

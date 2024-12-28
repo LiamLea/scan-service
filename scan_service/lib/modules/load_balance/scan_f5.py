@@ -5,7 +5,7 @@ except Exception:
 import hashlib
 import datetime
 import time
-from lib.framework import BusinessException
+from scan_service.lib.framework import BusinessException
 
 virtualservertype = {'0': 'poolbased', '1': 'ipforward', '2': 'l2forward',
                      '3': 'reject', '4': 'fastl4', '5': 'fasthttp', '6': 'stateless',

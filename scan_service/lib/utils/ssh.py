@@ -1,7 +1,7 @@
 import paramiko
 from paramiko.ssh_exception import SSHException, AuthenticationException, NoValidConnectionsError
-from lib.framework import BusinessException
-from lib.framework import AuthException
+from scan_service.lib.framework import BusinessException
+from scan_service.lib.framework import AuthException
 import socket
 import traceback
 

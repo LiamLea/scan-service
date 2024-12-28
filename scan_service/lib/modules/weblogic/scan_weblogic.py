@@ -1,8 +1,8 @@
-from lib.common import JavaScan
-from lib.vars import global_var
-from lib.utils import MyList
-from lib.utils import get_dir
-from lib.modules.weblogic.parse_weblogic import WeblogicParse
+from scan_service.lib.common import JavaScan
+from scan_service.lib.vars import global_var
+from scan_service.lib.utils import MyList
+from scan_service.lib.utils import get_dir
+from scan_service.lib.modules.weblogic.parse_weblogic import WeblogicParse
 import re
 import hashlib
 

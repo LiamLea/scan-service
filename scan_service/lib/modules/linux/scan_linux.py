@@ -1,15 +1,15 @@
 import time
 import re
 import ipaddress
-from lib.utils import MyList
-from lib.utils import size
-from lib.utils import string_to_bytes
-from lib.utils import kv_to_dict
-from lib.utils import get_speed_type
-from lib.utils import parse_pid_relation
-from lib.utils import version_format
-from lib.common import ScanViaSSH
-from lib.vars import global_var
+from scan_service.lib.utils import MyList
+from scan_service.lib.utils import size
+from scan_service.lib.utils import string_to_bytes
+from scan_service.lib.utils import kv_to_dict
+from scan_service.lib.utils import get_speed_type
+from scan_service.lib.utils import parse_pid_relation
+from scan_service.lib.utils import version_format
+from scan_service.lib.common import ScanViaSSH
+from scan_service.lib.vars import global_var
 import datetime
 
 """

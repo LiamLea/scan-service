@@ -1,1 +1,1 @@
-from lib.modules.nginx.scan_nginx import NginxScan
+from scan_service.lib.modules.nginx.scan_nginx import NginxScan

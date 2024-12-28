@@ -1,7 +1,7 @@
 import os
 import socket
 import re
-from lib.vars import global_var
+from scan_service.lib.vars import global_var
 
 """
 简单工具类

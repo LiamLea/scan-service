@@ -1,5 +1,5 @@
-from lib.vars import global_var
-from lib.framework import BusinessException
+from scan_service.lib.vars import global_var
+from scan_service.lib.framework import BusinessException
 
 def process_data(data):
 

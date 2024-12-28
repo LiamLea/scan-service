@@ -1,7 +1,7 @@
-from lib.utils import size
-from lib.modules.network_device.scan_switch import SwitchScan
-from lib.utils import get_portlist_from_hex
-from lib.framework import logger
+from scan_service.lib.utils import size
+from scan_service.lib.modules.network_device.scan_switch import SwitchScan
+from scan_service.lib.utils import get_portlist_from_hex
+from scan_service.lib.framework import logger
 
 class HuaweiSwitchScan(SwitchScan):
     def __init__(self, init_info):

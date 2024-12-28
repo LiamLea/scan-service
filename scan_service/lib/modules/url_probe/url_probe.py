@@ -1,8 +1,8 @@
 import re
-from lib.utils import get_ip_from_hostname
-from lib.framework import BusinessException
-from lib.database import Session
-from lib.database import AtomSystem,AtomConfig,ClusterInfo,ClusterNode,MonitorHost,HostConfig
+from scan_service.lib.utils import get_ip_from_hostname
+from scan_service.lib.framework import BusinessException
+from scan_service.lib.database import Session
+from scan_service.lib.database import AtomSystem,AtomConfig,ClusterInfo,ClusterNode,MonitorHost,HostConfig
 
 """
 需要用到的表：

@@ -1,9 +1,9 @@
 import re
-from lib.common import ParseViaSSH
+from scan_service.lib.common import ParseViaSSH
 import xmltodict
 import json
-from lib.utils import parse_jdbc
-from lib.utils import get_ip_from_hostname
+from scan_service.lib.utils import parse_jdbc
+from scan_service.lib.utils import get_ip_from_hostname
 
 class TomcatParse(ParseViaSSH):
     def __init__(self, ssh, passwd):

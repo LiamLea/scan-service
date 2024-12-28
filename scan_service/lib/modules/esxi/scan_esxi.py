@@ -1,18 +1,18 @@
 import time
 import re
 import hashlib
-from lib.common import ScanViaSSH
-from lib.utils import size
-from lib.utils import MyList
-from lib.utils import kv_to_dict
-from lib.utils import string_to_bytes
-from lib.utils import get_speed_type
-from lib.utils import version_format
+from scan_service.lib.common import ScanViaSSH
+from scan_service.lib.utils import size
+from scan_service.lib.utils import MyList
+from scan_service.lib.utils import kv_to_dict
+from scan_service.lib.utils import string_to_bytes
+from scan_service.lib.utils import get_speed_type
+from scan_service.lib.utils import version_format
 import datetime
 import uuid
-from lib.vars import global_var
+from scan_service.lib.vars import global_var
 from uuid import UUID
-from lib.framework import BusinessException
+from scan_service.lib.framework import BusinessException
 
 """
 该脚本利用ssh方式采集linux主机配置信息，并将结果存入指定kafka的指定topic

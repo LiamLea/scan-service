@@ -1,6 +1,6 @@
-from lib.common import ParseViaSSH
+from scan_service.lib.common import ParseViaSSH
 import re
-from lib.vars import global_var
+from scan_service.lib.vars import global_var
 
 class KeepalivedParse(ParseViaSSH):
     def __init__(self, ssh, passwd):

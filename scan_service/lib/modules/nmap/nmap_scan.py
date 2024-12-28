@@ -1,5 +1,5 @@
 from xml.dom import minidom
-from lib.common import ScanViaShell
+from scan_service.lib.common import ScanViaShell
 import time
 import os
 import re

@@ -1,4 +1,4 @@
-from lib.common import BaseScan
+from scan_service.lib.common import BaseScan
 from .parse_keepalived import KeepalivedParse
 
 class KeepalivedScan(BaseScan, KeepalivedParse):

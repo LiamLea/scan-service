@@ -1,8 +1,6 @@
-from lib.utils import SSH
-from lib.utils import SHELL
+from scan_service.lib import SSH
+from scan_service.lib import SHELL
 import re
-import xmltodict
-import json
 
 # from lib.modules.nginx.parse_nginx import NginxParse
 

@@ -1,15 +1,15 @@
 import hashlib
 import time
-from lib.utils import MyList
-from lib.utils import size
-from lib.utils import seconds_format
-from lib.utils import get_speed_type
-from lib.common import ScanViaSNMP
-from lib.utils import get_portlist_from_hex
-from lib.utils import string_to_bytes
+from scan_service.lib.utils import MyList
+from scan_service.lib.utils import size
+from scan_service.lib.utils import seconds_format
+from scan_service.lib.utils import get_speed_type
+from scan_service.lib.common import ScanViaSNMP
+from scan_service.lib.utils import get_portlist_from_hex
+from scan_service.lib.utils import string_to_bytes
 import datetime
 import re
-from lib.framework import logger
+from scan_service.lib.framework import logger
 
 class SwitchScan(ScanViaSNMP):
 

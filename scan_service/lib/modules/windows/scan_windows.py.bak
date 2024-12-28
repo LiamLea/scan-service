@@ -2,9 +2,9 @@ import telnetlib
 import time
 import json
 import hashlib
-#from lib.framework import BusinessException
-from lib.vars import global_var
-from lib.utils import string_to_bytes
+#from scan_service.lib.framework import BusinessException
+from scan_service.lib.vars import global_var
+from scan_service.lib.utils import string_to_bytes
 
 
 def windows_call_powershell(host, user, password):

@@ -1,7 +1,7 @@
-from lib.common import BaseScan
+from scan_service.lib.common import BaseScan
 import os
 import re
-from lib.utils import MyList
+from scan_service.lib.utils import MyList
 
 class JavaScan(BaseScan):
     def __init__(self, init_info, package_dict, feature_files_list, process_pattern, scan_files_dict):

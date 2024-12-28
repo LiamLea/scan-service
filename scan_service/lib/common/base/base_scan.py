@@ -1,14 +1,14 @@
 import re
 import time
 import hashlib
-from lib.utils import get_dir
-from lib.utils import MyList
-from lib.utils import SHELL
-from lib.utils import SNMP
-from lib.utils import parse_pid_relation
-from lib.utils import format_socket
+from scan_service.lib.utils import get_dir
+from scan_service.lib.utils import MyList
+from scan_service.lib.utils import SHELL
+from scan_service.lib.utils import SNMP
+from scan_service.lib.utils import parse_pid_relation
+from scan_service.lib.utils import format_socket
 import datetime
-from lib.framework import logger
+from scan_service.lib.framework import logger
 
 class Scan:
     def __init__(self, init_info):

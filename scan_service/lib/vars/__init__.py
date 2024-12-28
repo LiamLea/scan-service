@@ -1,1 +1,1 @@
-from lib.vars import global_var
+from scan_service.lib.vars import global_var

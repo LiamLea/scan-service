@@ -1,23 +1,23 @@
 import copy
-from lib.utils import MyList
-from lib.utils import size
-from lib.common import ScanViaSNMP
+from scan_service.lib.utils import MyList
+from scan_service.lib.utils import size
+from scan_service.lib.common import ScanViaSNMP
 
-from lib.modules.network_device.Huawei.oid_map import storage_product_model_huawei
-from lib.modules.network_device.Huawei.oid_map import host_running_status_map
-from lib.modules.network_device.Huawei.oid_map import host_os_map
-from lib.modules.network_device.Huawei.oid_map import controller_role_map
-from lib.modules.network_device.Huawei.oid_map import controller_master_map
-from lib.modules.network_device.Huawei.oid_map import fd_host_port_status
-from lib.modules.network_device.Huawei.oid_map import raid_level_map
-from lib.modules.network_device.Huawei.oid_map import lun_write_policy_map
-from lib.modules.network_device.Huawei.oid_map import lun_prefecth_strategy_map
-from lib.modules.network_device.Huawei.oid_map import lun_smart_tier_strategy_map
-from lib.modules.network_device.Huawei.oid_map import fc_port_configured_rate_map
-from lib.modules.network_device.Huawei.oid_map import fc_port_model_map
-from lib.modules.network_device.Huawei.oid_map import fc_port_logical_type_map
-from lib.modules.network_device.Huawei.oid_map import eth_port_type_map
-from lib.modules.network_device.Huawei.oid_map import health_status_map
+from scan_service.lib.modules.network_device.Huawei.oid_map import storage_product_model_huawei
+from scan_service.lib.modules.network_device.Huawei.oid_map import host_running_status_map
+from scan_service.lib.modules.network_device.Huawei.oid_map import host_os_map
+from scan_service.lib.modules.network_device.Huawei.oid_map import controller_role_map
+from scan_service.lib.modules.network_device.Huawei.oid_map import controller_master_map
+from scan_service.lib.modules.network_device.Huawei.oid_map import fd_host_port_status
+from scan_service.lib.modules.network_device.Huawei.oid_map import raid_level_map
+from scan_service.lib.modules.network_device.Huawei.oid_map import lun_write_policy_map
+from scan_service.lib.modules.network_device.Huawei.oid_map import lun_prefecth_strategy_map
+from scan_service.lib.modules.network_device.Huawei.oid_map import lun_smart_tier_strategy_map
+from scan_service.lib.modules.network_device.Huawei.oid_map import fc_port_configured_rate_map
+from scan_service.lib.modules.network_device.Huawei.oid_map import fc_port_model_map
+from scan_service.lib.modules.network_device.Huawei.oid_map import fc_port_logical_type_map
+from scan_service.lib.modules.network_device.Huawei.oid_map import eth_port_type_map
+from scan_service.lib.modules.network_device.Huawei.oid_map import health_status_map
 import datetime
 
 

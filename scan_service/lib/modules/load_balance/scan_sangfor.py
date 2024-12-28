@@ -2,11 +2,11 @@ try:
     from easysnmp import Session
 except Exception:
     pass
-from lib.common import ScanViaSNMP
+from scan_service.lib.common import ScanViaSNMP
 import hashlib
 import datetime
 import time
-from lib.framework import BusinessException
+from scan_service.lib.framework import BusinessException
 
 
 class SangforScan(ScanViaSNMP):
